@@ -62,7 +62,7 @@ public class BBDD extends SQLiteOpenHelper {
     public Boolean comprobarEmail(String email){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from Usuario where email = ?", new String[]{email});
-        if(cursor.getColumnCount() > 0)
+        if(cursor.getCount() > 0)
         {
             return true;
         }

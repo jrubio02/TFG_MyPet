@@ -3,29 +3,42 @@ package com.example.tfg_mypet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginUsers extends AppCompatActivity {
 
     EditText loginEmail, loginPassword;
-    Button loginButton, btnRegister;
+    Button loginButton;
     BBDD miBBDD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        if (Build.VERSION.SDK_INT > 16) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
+
         setContentView(R.layout.activity_login);
 
         loginEmail = (EditText) findViewById(R.id.loginEmail);
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         loginButton = (Button) findViewById(R.id.loginButton);
-        btnRegister = (Button) findViewById(R.id.btnRegistro);
+        TextView txtRegistro =  findViewById(R.id.txtRegistro);
         miBBDD = new BBDD(this);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        txtRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent register = new Intent(LoginUsers.this, registerUser.class);
@@ -49,7 +62,7 @@ public class LoginUsers extends AppCompatActivity {
                    if(checkUserPass == true)
                    {
                        Toast.makeText(LoginUsers.this, "Login correcto", Toast.LENGTH_SHORT).show();
-                       Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                       Intent intent = new Intent(getApplicationContext(), PantallaPpal.class);
                        startActivity(intent);
                    }
                    else
