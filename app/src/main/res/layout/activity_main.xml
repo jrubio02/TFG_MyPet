@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
 
-   <VideoView
+    <VideoView
        android:id="@+id/videoView"
        android:layout_width="0dp"
        android:layout_height="match_parent"
@@ -42,7 +42,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:fontFamily="@font/archivo_black"
+            android:fontFamily="@font/nunitomid"
             android:text="My Pet"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -53,7 +53,7 @@
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.27" />
+            app:layout_constraintVertical_bias="0.239" />
 
         <TextView
             android:id="@+id/textView2"
@@ -63,7 +63,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:fontFamily="casual"
+            android:fontFamily="@font/nunitomid"
             android:text="La aplicación donde encontrarás a tu mascota ideal"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -73,7 +73,7 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.448" />
+            app:layout_constraintVertical_bias="0.413" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -87,7 +87,7 @@
             android:backgroundTint="#FFFFFF"
             android:text="Iniciar Sesión"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:cornerRadius="50px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
             android:backgroundTint="#FF4331"
             android:fontFamily="@font/nunitosemi"
             android:text="Regístrate"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -11,10 +11,10 @@ import androidx.annotation.Nullable;
 public class BBDD extends SQLiteOpenHelper {
 
 
-    public static final String miBBDD = "Login.db";
+    public static final String miBBDD = "BBDD.db";
 
     public BBDD(Context context) {
-        super(context, "Login.db", null, 1);
+        super(context, "BBDD.db", null, 1);
     }
 
     @Override
@@ -22,11 +22,22 @@ public class BBDD extends SQLiteOpenHelper {
 
         db.execSQL("create Table IF NOT EXISTS Usuario" +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre text NOT NULL UNIQUE," +
-                "apellidos text NOT NULL UNIQUE," +
+                "nombre text NOT NULL," +
+                "apellidos text NOT NULL," +
                 "email text NOT NULL UNIQUE," +
                 "password text NOT NULL," +
                 "telefono integer NOT NULL)");
+
+        db.execSQL("create Table IF NOT EXISTS Animal" +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre text NOT NULL," +
+                "raza text," +
+                "genero text ," +
+                "tamaño text NOT NULL," +
+                "edad integer," +
+                "tipo text NOT NULL," +
+                "descripcion text NOT NULL)");
+
 
 
     }
@@ -34,7 +45,9 @@ public class BBDD extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
 
-        db.execSQL("drop table if exists usuarios");
+        db.execSQL("drop table if exists Usuario");
+
+        db.execSQL("drop table if exists Animal");
 
     }
 
@@ -79,5 +92,12 @@ public class BBDD extends SQLiteOpenHelper {
         }
         else
             return false;
+    }
+    
+    public Cursor getData(String tipoAnimal)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from Animal where tipo = '" + tipoAnimal + "'", null);
+        return cursor;
     }
 }
