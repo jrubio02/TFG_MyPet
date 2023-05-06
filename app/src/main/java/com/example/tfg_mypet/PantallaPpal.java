@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class PantallaPpal<ImagenView> extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList <String> nombre, edad, genero, raza;
+    ArrayList <String> nombre, edad, genero, raza, emailDueño;
+    ArrayList <Integer> id;
     BBDD miBBD;
     AnimalAdapter miAdapter;
 
@@ -32,12 +33,13 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_ppal);
 
         miBBD = new BBDD(this);
+        id = new ArrayList<>();
         nombre = new ArrayList<>();
         edad = new ArrayList<>();
         genero = new ArrayList<>();
         raza = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerview);
-        miAdapter = new AnimalAdapter(this, nombre, raza, genero, edad);
+        miAdapter = new AnimalAdapter(this, id ,nombre, raza, genero, edad);
         recyclerView.setAdapter(miAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -100,11 +102,13 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
     }
 
     private void displaydata(String tipoAnimal) {
+        id.clear();
         nombre.clear();
         edad.clear();
         genero.clear();
         raza.clear();
         Cursor cursor = miBBD.getData(tipoAnimal);
+
         if(cursor.getCount()==0)
         {
             Toast.makeText(this, "No hay datos", Toast.LENGTH_SHORT).show();
@@ -115,10 +119,11 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
 
             while(cursor.moveToNext())
             {
-                nombre.add(cursor.getString(1));
-                raza.add(cursor.getString(2));
-                genero.add(cursor.getString(3));
-                edad.add(cursor.getString(5));
+                id.add(cursor.getInt(0));
+                nombre.add(cursor.getString(2));
+                raza.add(cursor.getString(3));
+                genero.add(cursor.getString(4));
+                edad.add(cursor.getString(6));
 
             }
         }

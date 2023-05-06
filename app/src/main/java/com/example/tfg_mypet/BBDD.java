@@ -28,15 +28,18 @@ public class BBDD extends SQLiteOpenHelper {
                 "password text NOT NULL," +
                 "telefono integer NOT NULL)");
 
-        db.execSQL("create Table IF NOT EXISTS Animal" +
-                "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre text NOT NULL," +
-                "raza text," +
-                "genero text ," +
-                "tamaño text NOT NULL," +
-                "edad integer," +
-                "tipo text NOT NULL," +
-                "descripcion text NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS Animal (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "idDueño INTEGER NOT NULL," +
+                "nombre TEXT NOT NULL," +
+                "raza TEXT," +
+                "genero TEXT," +
+                "tamaño TEXT NOT NULL," +
+                "edad INTEGER," +
+                "tipo TEXT NOT NULL," +
+                "descripcion TEXT NOT NULL," +
+                "FOREIGN KEY(idDueño) REFERENCES Usuario(id))");
+
 
 
 
@@ -99,5 +102,22 @@ public class BBDD extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from Animal where tipo = '" + tipoAnimal + "'", null);
         return cursor;
+    }
+    public String getEmailDueño(int idAnimal) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT Usuario.email " +
+                "FROM Usuario " +
+                "JOIN Animal ON Usuario.id = Animal.idDueño " +
+                "WHERE Animal.Id = " + idAnimal + ";" ;
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            String email = cursor.getString(0);
+            cursor.close();
+            return email;
+        } else {
+            cursor.close();
+            return null;
+        }
     }
 }
