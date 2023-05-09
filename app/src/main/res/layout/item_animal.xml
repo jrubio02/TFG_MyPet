@@ -71,7 +71,7 @@
                 app:layout_constraintVertical_bias="0.682" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imagen"
                 android:layout_width="wrap_content"
                 android:layout_height="117dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +80,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ejemploperro" />
+                android:scaleType="center" />
+
 
             <TextView
                 android:id="@+id/animalNombre"

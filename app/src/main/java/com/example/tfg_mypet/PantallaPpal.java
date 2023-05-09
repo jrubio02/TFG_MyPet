@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class PantallaPpal<ImagenView> extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList <String> nombre, edad, genero, raza, emailDueño;
+    ArrayList <String> nombre, edad, genero, raza, emailDueño, descripcion, imagen;
     ArrayList <Integer> id;
     BBDD miBBD;
     AnimalAdapter miAdapter;
@@ -38,8 +38,10 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
         edad = new ArrayList<>();
         genero = new ArrayList<>();
         raza = new ArrayList<>();
+        descripcion = new ArrayList<>();
+        imagen = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerview);
-        miAdapter = new AnimalAdapter(this, id ,nombre, raza, genero, edad);
+        miAdapter = new AnimalAdapter(this, id ,nombre, raza, genero, edad, descripcion, imagen);
         recyclerView.setAdapter(miAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -107,6 +109,8 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
         edad.clear();
         genero.clear();
         raza.clear();
+        descripcion.clear();
+        imagen.clear();
         Cursor cursor = miBBD.getData(tipoAnimal);
 
         if(cursor.getCount()==0)
@@ -124,6 +128,8 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
                 raza.add(cursor.getString(3));
                 genero.add(cursor.getString(4));
                 edad.add(cursor.getString(6));
+                descripcion.add(cursor.getString(8));
+                imagen.add((cursor.getString(9)));
 
             }
         }
