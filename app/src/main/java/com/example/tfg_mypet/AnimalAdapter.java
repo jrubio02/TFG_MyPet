@@ -24,8 +24,9 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.MyViewHold
     private ArrayList<String> nombre, raza, genero, edad, descripcion, imagen;
     private ArrayList<Integer> id;
     int miPosicion;
+    private String emailUsuario;
+    public AnimalAdapter(Context context, ArrayList<Integer> id, ArrayList<String> nombre, ArrayList<String> raza, ArrayList<String> genero, ArrayList<String> edad, ArrayList<String> descripcion, ArrayList<String> imagen, String emailUsuario) {
 
-    public AnimalAdapter(Context context, ArrayList<Integer> id, ArrayList<String> nombre, ArrayList<String> raza, ArrayList<String> genero, ArrayList<String> edad, ArrayList<String> descripcion, ArrayList<String> imagen) {
         this.context = context;
         this.id = id;
         this.nombre = nombre;
@@ -34,8 +35,8 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.MyViewHold
         this.edad = edad;
         this.descripcion = descripcion;
         this.imagen = imagen;
+        this.emailUsuario = emailUsuario;
 
-        Log.d("Adapter", "ID: " + id.toString());
     }
 
 
@@ -72,6 +73,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.MyViewHold
             public void onClick(View v) {
                 int currentPosition = holder.getAbsoluteAdapterPosition();
                 Intent intent = new Intent(context, DetallesAnimal.class);
+
                 intent.putExtra("id", id.get(currentPosition));
                 intent.putExtra("nombre", nombre.get(currentPosition));
                 intent.putExtra("raza", raza.get(currentPosition));
@@ -79,9 +81,10 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.MyViewHold
                 intent.putExtra("genero", genero.get(currentPosition));
                 intent.putExtra("descripcion", descripcion.get(currentPosition));
                 intent.putExtra("imagen", imagen.get(currentPosition));
-
+                intent.putExtra("email", emailUsuario);
                 context.startActivity(intent);
             }
+
         });
 
 
@@ -114,9 +117,6 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.MyViewHold
             genero = itemView.findViewById(R.id.animalGenero);
             id = itemView.findViewById(R.id.id);
             imagen = itemView.findViewById(R.id.imagen);
-
-
-
             perro = itemView.findViewById(R.id.paginaDetalles);
         }
     }

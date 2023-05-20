@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginUsers extends AppCompatActivity {
 
@@ -23,11 +26,12 @@ public class LoginUsers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if (Build.VERSION.SDK_INT > 16) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
+        setContentView(R.layout.activity_login); // Inflar el diseño de la actividad
 
 
         setContentView(R.layout.activity_login);
@@ -61,9 +65,14 @@ public class LoginUsers extends AppCompatActivity {
                    Boolean checkUserPass = miBBDD.comprobarEmailPassword(email, password);
                    if(checkUserPass == true)
                    {
-                       Toast.makeText(LoginUsers.this, "Login correcto", Toast.LENGTH_SHORT).show();
-                       Intent intent = new Intent(getApplicationContext(), PantallaPpal.class);
+
+//                       Toast.makeText(LoginUsers.this, "Login correcto", Toast.LENGTH_SHORT).show();
+                       Intent intent = new Intent(LoginUsers.this, PantallaPpal.class);
+                       intent.putExtra("email", loginEmail.getText().toString());
+                       intent.putExtra("password", loginPassword.getText().toString());
+
                        startActivity(intent);
+
                    }
                    else
                    {

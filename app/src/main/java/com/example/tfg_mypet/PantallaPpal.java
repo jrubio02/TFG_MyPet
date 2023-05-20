@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,14 +24,14 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
     ArrayList <Integer> id;
     BBDD miBBD;
     AnimalAdapter miAdapter;
-
-
-
+    ImageView imgPerfil;
+    int idDueño;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_ppal);
+
 
         miBBD = new BBDD(this);
         id = new ArrayList<>();
@@ -41,7 +42,8 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
         descripcion = new ArrayList<>();
         imagen = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerview);
-        miAdapter = new AnimalAdapter(this, id ,nombre, raza, genero, edad, descripcion, imagen);
+        miAdapter = new AnimalAdapter(this, id, nombre, raza, genero, edad, descripcion, imagen, getIntent().getStringExtra("email"));
+
         recyclerView.setAdapter(miAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -101,6 +103,21 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
         imgPez.setOnClickListener(imageClickListener);
         imgAve.setOnClickListener(imageClickListener);
         imgHamster.setOnClickListener(imageClickListener);
+
+        imgPerfil =  findViewById(R.id.btnPerfil);
+
+
+
+        imgPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PantallaPpal.this, Perfil.class);
+                intent.putExtra("email", getIntent().getStringExtra("email"));
+                startActivity(intent);
+            }
+
+
+        });
     }
 
     private void displaydata(String tipoAnimal) {
@@ -111,7 +128,8 @@ public class PantallaPpal<ImagenView> extends AppCompatActivity {
         raza.clear();
         descripcion.clear();
         imagen.clear();
-        Cursor cursor = miBBD.getData(tipoAnimal);
+        idDueño = miBBD.getIdUsuario(getIntent().getStringExtra("email"));
+        Cursor cursor = miBBD.getData(tipoAnimal, idDueño);
 
         if(cursor.getCount()==0)
         {

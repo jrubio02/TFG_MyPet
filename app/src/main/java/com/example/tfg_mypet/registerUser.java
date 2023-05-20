@@ -65,7 +65,10 @@ public class registerUser extends AppCompatActivity {
                                 if(insert==true)
                                 {
                                     Toast.makeText(registerUser.this, "Registro Realizado", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), PantallaPpal.class);
+                                    Intent intent = new Intent(registerUser.this, PantallaPpal.class);
+                                    intent.putExtra("email", registerEmail.getText().toString());
+                                    intent.putExtra("password", registerPassword.getText().toString());
+
                                     startActivity(intent);
                                 }
                                 else
